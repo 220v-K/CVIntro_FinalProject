@@ -9,14 +9,8 @@ MODEL_FACTORY = {
     "resnet50": tv_models.resnet50,
 }
 
-WEIGHT_ENUMS = {
-    "resnet18": getattr(tv_models, "ResNet18_Weights", None),
-    "resnet34": getattr(tv_models, "ResNet34_Weights", None),
-    "resnet50": getattr(tv_models, "ResNet50_Weights", None),
-}
 
-
-def build_model(arch: str, num_classes: int, pretrained: bool = False, dropout: float = 0.0) -> nn.Module:
+def build_model(arch: str, num_classes: int, dropout: float = 0.0) -> nn.Module:
     """
     지정한 ResNet 아키텍처를 생성하고, 분류기 부분을 현재 과제에 맞게 교체한다.
     """
@@ -25,14 +19,10 @@ def build_model(arch: str, num_classes: int, pretrained: bool = False, dropout: 
         raise ValueError(f"지원하지 않는 모델입니다: {arch}")
 
     try:
-        weight_enum = WEIGHT_ENUMS.get(arch)
-        weights = None
-        if pretrained and weight_enum is not None:
-            weights = weight_enum.IMAGENET1K_V1
-        model = MODEL_FACTORY[arch](weights=weights)
+        model = MODEL_FACTORY[arch](weights=None)
     except (TypeError, AttributeError):
-        # 구버전 호환을 위해 pretrained 플래그를 그대로 전달한다.
-        model = MODEL_FACTORY[arch](pretrained=pretrained)
+        # 구버전 torchvision 호환: weights 인자가 없을 때 False로 고정
+        model = MODEL_FACTORY[arch](pretrained=False)
 
     in_features = model.fc.in_features
     classifier: nn.Module

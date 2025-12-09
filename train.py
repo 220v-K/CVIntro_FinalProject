@@ -81,7 +81,6 @@ def parse_args():
     ########################################
     parser.add_argument("--arch", type=str, default="resnet18", choices=available_models())
     parser.add_argument("--num_classes", type=int, default=4)
-    parser.add_argument("--pretrained", action="store_true")
     parser.add_argument("--dropout", type=float, default=0.0)
 
     ########################################
@@ -406,7 +405,6 @@ def main():
     model = build_model(
         arch=args.arch,
         num_classes=args.num_classes,
-        pretrained=args.pretrained,
         dropout=args.dropout,
     ).to(device)
 

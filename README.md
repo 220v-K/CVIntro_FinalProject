@@ -64,7 +64,7 @@ python /home/jaewonlee/cvintro/train.py \
   - `--num_workers`, `--pin_memory`, `--drop_last` for DataLoader tuning.
 
 - Model & Optimization  
-  - `--arch`: `resnet18|resnet34|resnet50`; `--pretrained` loads ImageNet weights.  
+  - `--arch`: `resnet18|resnet34|resnet50`.  
   - `--optimizer`: `sgd|adam|adamw`; momentum/betas/weight decay exposed.  
   - `--scheduler`: `none|multistep|cosine` with `--warmup_epochs` and `--milestones`.  
   - `--learning_rate`, `--epochs`, `--weight_decay`, `--batch_size`, `--dropout`.  
@@ -122,7 +122,7 @@ Compare ResNet50 performance across different learning rates. The baseline is `L
 - Comparison: `LR = 0.01` vs `0.02` vs `0.05` vs `0.10`
 - Observation: When LR is too large (`0.10`), validation performance degrades. The range `0.02–0.05` appears to be a reasonable choice.
 
-| Model         | LR    | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name      | LR    | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |---------------|-------|-----------|---------|----------|----------|----------------|-------------|
 | r50_lr001     | 0.01  | 0.86357   | 0.9225  | 0.82321  | 0.81843  | 0.82728        | 0.81657     |
 | r50_baseline  | 0.02  | 0.86413   | 0.9275  | 0.82389  | 0.81890  | 0.82830        | 0.81646     |
@@ -138,7 +138,7 @@ Compare traditional SGD (with momentum) and AdamW for ResNet50.
 - Comparison: SGD (`LR = 0.02`) vs AdamW (`LR = 0.001`)
 - Observation: AdamW shows higher test performance (`Test Acc = 0.84710`) than SGD, despite lower training accuracy, indicating better generalization.
 
-| Model      | Optimizer | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name   | Optimizer | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |------------|-----------|-----------|---------|----------|----------|----------------|-------------|
 | r50_sgd    | SGD       | 0.93748   | 0.9225  | 0.83754  | 0.83293  | 0.84302        | 0.83060     |
 | r50_adamw  | AdamW     | 0.87969   | 0.9325  | 0.84710  | 0.84067  | 0.85185        | 0.83880     |
@@ -152,8 +152,8 @@ Investigate the effect of different weight decay strengths on ResNet50.
 - Comparison: `1e-5` (Weak) vs `1e-4` (Baseline) vs `5e-4` (Strong)
 - Observation: The difference between `1e-4` and `5e-4` is small. In some metrics, `1e-5` even slightly outperforms the baseline.
 
-| Model         | Weight Decay | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
-|---------------|-------------:|-----------|---------|----------|----------|----------------|-------------|
+| Run Name      | Weight Decay | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+|---------------|--------------|-----------|---------|----------|----------|----------------|-------------|
 | r50_wd1e5     | 1e-5         | 0.85774   | 0.9300  | 0.83140  | 0.82647  | 0.83502        | 0.82489     |
 | r50_baseline  | 1e-4         | 0.86413   | 0.9275  | 0.82389  | 0.81890  | 0.82830        | 0.81646     |
 | r50_wd5e4     | 5e-4         | 0.86246   | 0.9225  | 0.82799  | 0.82184  | 0.83413        | 0.81956     |
@@ -167,7 +167,7 @@ Evaluate modern regularization techniques such as Label Smoothing, CutMix, and M
 - Comparison: No Regularization vs Label Smoothing vs CutMix vs Mixup+CutMix
 - Observation: The no-regularization model has very high train accuracy (`0.95888`) but lower test accuracy (`0.83345`), suggesting overfitting. The `Mixup+CutMix` setting achieves the best test accuracy (`0.85051`) and F1, indicating better generalization.
 
-| Model        | Method               | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name     | Method               | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |--------------|----------------------|-----------|---------|----------|----------|----------------|-------------|
 | r50_no_reg   | None                 | 0.95888   | 0.9300  | 0.83345  | 0.82890  | 0.83949        | 0.82578     |
 | r50_ls02     | LabelSmooth(0.2)     | 0.85968   | 0.9175  | 0.84164  | 0.83578  | 0.84689        | 0.83482     |
@@ -183,7 +183,7 @@ Study the effect of data augmentation strength on model performance.
 - Comparison: Light (Flip+Crop) vs Medium (Baseline, includes ColorJitter, etc.) vs Heavy (Blur, Erase, etc.)
 - Observation: Light augmentation leads to significantly lower test performance (`Test Acc = 0.72765`). Medium or Heavy augmentation appears necessary for good generalization.
 
-| Model           | Aug Level | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name        | Aug Level | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |-----------------|-----------|-----------|---------|----------|----------|----------------|-------------|
 | r50_aug_light   | Light     | 0.87580   | 0.9275  | 0.72765  | 0.71124  | 0.71414        | 0.71538     |
 | r50_baseline    | Medium    | 0.86413   | 0.9275  | 0.82389  | 0.81890  | 0.82830        | 0.81646     |
@@ -198,7 +198,7 @@ Analyze the effect of inserting a Dropout layer before the final FC layer in Res
 - Comparison: Dropout `0.0` (Baseline) vs `0.2` vs `0.5`
 - Observation: Dropout `0.2` improves test accuracy (`0.84369`) over the baseline. Dropout `0.5` slightly improves over baseline but is worse than `0.2`.
 
-| Model         | Dropout | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name      | Dropout | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |---------------|---------|-----------|---------|----------|----------|----------------|-------------|
 | r50_baseline  | 0.0     | 0.86413   | 0.9275  | 0.82389  | 0.81890  | 0.82830        | 0.81646     |
 | r50_drop02    | 0.2     | 0.84885   | 0.9275  | 0.84369  | 0.83969  | 0.84807        | 0.82200     |
@@ -213,7 +213,7 @@ Compare different ResNet architectures under the same training setup.
 - Comparison: ResNet18 vs ResNet34 vs ResNet50
 - Observation: ResNet18 outperforms ResNet50 on this dataset (`Test Acc = 0.84505` vs `0.82389`). The dataset size may be relatively small for ResNet50, leading to overfitting or suboptimal optimization.
 
-| Model          | Arch     | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name       | Arch     | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |----------------|----------|-----------|---------|----------|----------|----------------|-------------|
 | r18_baseline   | ResNet18 | 0.87580   | 0.9275  | 0.84505  | 0.83894  | 0.85220        | 0.83632     |
 | r34_baseline   | ResNet34 | 0.85496   | 0.9325  | 0.82321  | 0.81843  | 0.82728        | 0.81657     |
@@ -228,7 +228,7 @@ Apply the Linear Scaling Rule: scale learning rate linearly with batch size.
 - Comparison: Batch 32 (`LR = 0.01`) vs Batch 64 (`LR = 0.02`, Baseline) vs Batch 128 (`LR = 0.04`)
 - Observation: The `Batch 128 / LR 0.04` configuration achieves the best test accuracy (`0.85324`), the highest among all experiments.
 
-| Model           | Batch / LR | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
+| Run Name        | Batch / LR | Train Acc | Val Acc | Test Acc | Test F1  | Test Precision | Test Recall |
 |-----------------|------------|-----------|---------|----------|----------|----------------|-------------|
 | r50_b32_lr01    | B32 / 0.01 | 0.81134   | 0.9350  | 0.83003  | 0.82430  | 0.83846        | 0.82116     |
 | r50_baseline    | B64 / 0.02 | 0.86413   | 0.9275  | 0.82389  | 0.81890  | 0.82830        | 0.81646     |
