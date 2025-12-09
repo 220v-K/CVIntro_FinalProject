@@ -96,7 +96,7 @@ python /home/jaewonlee/cvintro/train.py \
    - Val/Test transforms default to center-crop + normalization (or resize-only if specified).
 
 3) Model build  
-   - Constructs ResNet18/34/50, replaces the final FC with a head sized to `--num_classes`, optional dropout, optional ImageNet pretraining.
+   - Constructs ResNet18/34/50, replaces the final FC with a head sized to `--num_classes`, optional dropout.
 
 4) Optimization loop  
    - Supports SGD/Adam/AdamW, cosine or multistep schedulers with warmup, gradient clipping, mixed precision, and grad accumulation.  
