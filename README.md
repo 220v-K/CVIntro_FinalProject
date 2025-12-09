@@ -115,7 +115,7 @@ Experimental Results Summary
 
 ---
 
-### 1. Experiment 1: Learning Rate Search
+### Experiment 1: Learning Rate Search
 
 Compare ResNet50 performance across different learning rates. The baseline is `LR = 0.02`.
 
@@ -131,7 +131,7 @@ Compare ResNet50 performance across different learning rates. The baseline is `L
 
 ---
 
-### 2. Experiment 2: Optimizer Comparison
+### Experiment 2: Optimizer Comparison
 
 Compare traditional SGD (with momentum) and AdamW for ResNet50.
 
@@ -145,7 +145,7 @@ Compare traditional SGD (with momentum) and AdamW for ResNet50.
 
 ---
 
-### 3. Experiment 3: Weight Decay Search
+### Experiment 3: Weight Decay Search
 
 Investigate the effect of different weight decay strengths on ResNet50.
 
@@ -160,7 +160,7 @@ Investigate the effect of different weight decay strengths on ResNet50.
 
 ---
 
-### 4. Experiment 4: Regularization Combinations
+### Experiment 4: Regularization Combinations
 
 Evaluate modern regularization techniques such as Label Smoothing, CutMix, and Mixup+CutMix.
 
@@ -176,7 +176,7 @@ Evaluate modern regularization techniques such as Label Smoothing, CutMix, and M
 
 ---
 
-### 5. Experiment 5: Augmentation Strength
+### Experiment 5: Augmentation Strength
 
 Study the effect of data augmentation strength on model performance.
 
@@ -191,7 +191,7 @@ Study the effect of data augmentation strength on model performance.
 
 ---
 
-### 6. Experiment 6: Dropout Effect
+### Experiment 6: Dropout Effect
 
 Analyze the effect of inserting a Dropout layer before the final FC layer in ResNet50.
 
@@ -206,7 +206,7 @@ Analyze the effect of inserting a Dropout layer before the final FC layer in Res
 
 ---
 
-### 7. Experiment 7: Model Architecture Comparison
+### Experiment 7: Model Architecture Comparison
 
 Compare different ResNet architectures under the same training setup.
 
@@ -221,7 +221,7 @@ Compare different ResNet architectures under the same training setup.
 
 ---
 
-### 8. Experiment 8: Batch Size + LR Scaling
+### Experiment 8: Batch Size + LR Scaling
 
 Apply the Linear Scaling Rule: scale learning rate linearly with batch size.
 
