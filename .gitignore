@@ -1,0 +1,4 @@
+POC_Dataset/
+__pycache__/
+result/
+wandb/
